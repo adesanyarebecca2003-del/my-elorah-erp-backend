@@ -53,3 +53,9 @@ class TokenResponse(BaseModel):
     username: str
     is_admin: bool
     permissions: list[str] = []
+
+class UserCreateSchema(BaseModel):
+    username: str = Field(..., min_length=3, max_length=50)
+    password: str = Field(..., min_length=6, max_length=128)
+    is_admin: bool = False
+    permissions: str | None = None  # e.g. "*" or "inventory.read,inventory.write"

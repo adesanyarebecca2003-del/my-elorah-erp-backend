@@ -59,3 +59,29 @@ async def authenticate_user(
     )
 
     return user, access_token
+
+
+async def create_user_service(
+    db: AsyncSession,
+    username: str,
+    password: str,
+    is_admin: bool = False,
+    permissions: str | None = None,
+):
+    # Ensure unique username
+    result = await db.execute(select(User).where(User.username == username))
+    existing = result.scalar_one_or_none()
+    if existing:
+        raise HTTPException(status_code=400, detail="Username already exists")
+
+    user = User(
+        username=username,
+        password_hash=hash_password(password),
+        is_admin=is_admin,
+        is_active=True,
+        permissions=permissions,
+    )
+    db.add(user)
+    await db.commit()
+    await db.refresh(user)
+    return user
