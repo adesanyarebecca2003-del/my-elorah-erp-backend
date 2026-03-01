@@ -20,7 +20,7 @@ from app.api.accounting_periods import router as accounting_periods_router
 from app.api.balance_sheet import router as balance_sheet_router
 from app.api.reports import router as reports_router
 from app.api.auth import router as auth_router
-from app.api.admin_seed import router as admin_seed_router
+# from app.api.admin_seed import router as admin_seed_router
 
 app = FastAPI(
     title="Elorah ERP",
@@ -60,7 +60,7 @@ app.include_router(accounting_periods_router)
 app.include_router(balance_sheet_router)
 app.include_router(reports_router)
 app.include_router(auth_router)
-app.include_router(admin_seed_router)
+# app.include_router(admin_seed_router)
 
 @app.exception_handler(Exception)
 async def unhandled_exception_handler(request: Request, exc: Exception):

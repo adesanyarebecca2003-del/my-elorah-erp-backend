@@ -4,6 +4,7 @@ from datetime import datetime
 from sqlalchemy import Boolean, Column, String, DateTime
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
+from sqlalchemy.dialects.postgresql import JSONB
 
 from app.db.session import Base
 
@@ -18,6 +19,7 @@ class User(Base):
 
     is_active = Column(Boolean, default=True, nullable=False)
     is_admin = Column(Boolean, default=False, nullable=False)
+    permissions = Column(JSONB, default=list)
 
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 
