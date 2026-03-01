@@ -7,7 +7,11 @@ from app.models.role_permissions import RolePermission
 from fastapi import HTTPException, status
 
 from app.models.user import User
-from app.core.security import verify_password, create_access_token
+from app.core.security import (
+    verify_password,
+    create_access_token,
+    hash_password,
+)
 
 
 async def authenticate_user(
