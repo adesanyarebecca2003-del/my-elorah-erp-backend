@@ -15,6 +15,7 @@ async def seed_coa(
     db: AsyncSession = Depends(get_db),
     _admin = Depends(admin_required),
 ):
-    # Run your seeding function
-    await seed(db)
+    result = seed()
+    if hasattr(result, "__await__"):
+        await result
     return {"detail": "Chart of Accounts seeded successfully"}
