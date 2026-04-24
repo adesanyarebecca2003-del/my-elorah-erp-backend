@@ -54,7 +54,7 @@ async def _create_system_purchase_line_for_adjustment_increase(
 
 
 async def create_inventory_adjustment(db: AsyncSession, payload):
-    ensure_period_open(payload.adjustment_date)
+    await ensure_period_open(db, payload.adjustment_date)
 
     product_ids = {l.product_id for l in payload.lines}
 
