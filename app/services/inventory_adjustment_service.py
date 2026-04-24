@@ -82,6 +82,15 @@ async def create_inventory_adjustment(db: AsyncSession, payload):
     for line in payload.lines:
         product = products[line.product_id]
         category = product.category
+        
+        if payload.adjustment_type == "INCREASE" and not category.gain_account_id:
+        raise ValueError(f"Missing gain account for inventory category: {category.name}")
+
+        if payload.adjustment_type == "DECREASE" and not category.loss_account_id:
+        raise ValueError(f"Missing loss account for inventory category: {category.name}")
+
+        if not category.inventory_account_id:
+        raise ValueError(f"Missing inventory account for inventory category: {category.name}")
 
         qty = int(line.quantity)
         if qty <= 0:
