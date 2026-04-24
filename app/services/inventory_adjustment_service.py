@@ -1,6 +1,7 @@
 # app/services/inventory_adjustment_service.py
 from decimal import Decimal
 from datetime import date
+from sqlalchemy.orm import selectinload
 
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
