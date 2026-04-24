@@ -122,7 +122,7 @@ async def create_inventory_adjustment(db: AsyncSession, payload):
                     credit=Decimal("0.00"),
                 ),
                 JournalLineCreate(
-                    account_id=category.adjustment_gain_account_id,
+                    account_id=category.gain_account_id,
                     debit=Decimal("0.00"),
                     credit=total_cost,
                 ),
@@ -174,12 +174,12 @@ async def create_inventory_adjustment(db: AsyncSession, payload):
             # Journal (Loss on adjustment for decrease)
             journal_lines += [
                 JournalLineCreate(
-                    account_id=category.adjustment_loss_account_id,
+                    account_id=category.loss_account_id,
                     debit=total_cost,
                     credit=Decimal("0.00"),
                 ),
                 JournalLineCreate(
-                    account_id=category.inventory_account_id,
+                     account_id=category.inventory_account_id,
                     debit=Decimal("0.00"),
                     credit=total_cost,
                 ),
