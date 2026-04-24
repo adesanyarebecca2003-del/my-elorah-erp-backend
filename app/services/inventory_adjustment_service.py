@@ -61,7 +61,7 @@ async def create_inventory_adjustment(db: AsyncSession, payload):
     result = await db.execute(
         select(InventoryProduct)
         .where(InventoryProduct.id.in_(product_ids))
-        .options(InventoryProduct.category)
+        .options(selectinload(InventoryProduct.category))
     )
     products = {p.id: p for p in result.scalars().all()}
 
